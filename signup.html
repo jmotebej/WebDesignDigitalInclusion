@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head>
+	<title>REGISTER</title>
+	<style type="text/css">		
+		.registerbtn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 40%;
+            opacity: 0.9;
+        }
+        .signin {
+            /* background-color: #f1f1f1; */
+            text-align: center;
+            width: 40%;
+        }
+        a{
+            color:red;
+        }
+    </style>
+    <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-auth.js"></script>
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+    https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="form.js"></script>
+</head>
+<body bgcolor="indigo" text=silver><br />
+    <center> 
+        <h1>REGISTER</h1>
+        <p>Please fill in this form to create an account.</p>
+        <p>Press Register button when you are done</p>
+    
+   
+	<form action="login.html">
+		<table align=center>
+			<tr><td>Name</td><td>:<input type="Name" placeholder="Name" id="Name" required/></td></tr>
+			<tr><td>Surname</td><td>:<input  type="Surname" placeholder="Surname" id="Surname" required/></td></tr>
+            <tr><td>Phone-number</td><td>:<input type="Phone" placeholder="Phone Number" id="Phone" required/></td></tr>
+            <tr><td>Email</td><td>:<input type="email" placeholder="Email" id="email" required/></td></tr>		
+            <tr><td>Password</td><td>:<input type="password" placeholder="Password" id="password" required/></td></tr>
+            <tr><td>Confirm Password</td><td>:<input type="password" placeholder="Confirm Password" id="confirmpassword" required/></td></tr>			
+            <tr><td>Institution</td><td>:<input type="Institution" placeholder="Institution" id="Institution" required/></td></tr>            		
+        </table>
+        <br>        
+        <button class="registerbtn" onclick="signUp()" id="Register">REGISTER</button>
+        <div class="container signin">
+            <p>Already have an account? <a href="login.html">Sign in</a>.</p>
+        </div>
+    </form>
+    <br>  
+        
+        <!-- <button onclick="signUp()" id="Register">Register</button> -->
+    </center>
+</body>
+</html>

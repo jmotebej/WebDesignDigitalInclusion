@@ -1,0 +1,169 @@
+<html>
+<head>
+    <title>MATH GAME</title>
+    <style>
+    .navbar {
+        overflow: hidden;
+        background-size: auto;
+        background-color: #333;
+      }
+    .navbar2 {
+        overflow: hidden;
+        background-size: auto;
+        background-color: rgb(46, 20, 80);
+      }
+      
+      /* Navigation links */
+      .navbar a,.navbar2 a {
+        float: left;
+        font-size: 16px;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+      }      
+      
+      .navbar a:hover, .subnav:hover .subnavbtn {
+        background-color: grey;
+      }     
+      body {
+          background-image: url("https://w.wallhaven.cc/full/4l/wallhaven-4l6eep.png");
+          /* background-size: auto; */
+          /* background: linear-gradient(45deg, rgb(0, 63, 145), rgb(98, 0, 107)); */
+          background-repeat: no-repeat;
+          background-size: cover;    
+        }
+        .dark-mode {
+  background-image: url("https://w.wallhaven.cc/full/0p/wallhaven-0pjllp.png");
+  color: white;
+}
+      h1,h2,h3{
+      background: linear-gradient(45deg, rgb(0, 63, 145), rgb(98, 0, 107));
+      color:white;
+      width: 900px;
+      }
+    </style>
+    </head>
+<body bgcolor="indigo" text=silver><br />
+          <center>
+            <div class="navbar">
+              <a href=""><u>MATHEMATICS GAME</u></a>
+              <a href="tic.html">TIC TAC TOE</a> 
+              <a onclick="myFunction()">CHANGE THEME COLOUR</a>             
+            </div>
+<form id="game">
+    <p>Question: <span id="questionnumber"></p>
+    <p>What is <span id="first"></span> <span id="operator"></span> <span id="second"></span>?</p>
+    <p><input name="answer" autocomplete="off"></label> <input type="submit" name="submit" value="answer"></p>
+</form>
+<script>
+    function myFunction() {
+        var element = document.body;
+        element.classList.toggle("dark-mode");
+      }
+   window.questions = {
+    history: [],
+    init: function (form) {
+        this.minValue = 1;
+        this.maxValue = 20;
+        this.totalQuestions = 10;
+        this.startTime = new Date();
+        form.questions = this;
+        form.onsubmit = this.ask;
+        form.questions.show(form);
+    },
+    get: function () {
+        var question = {},
+            operatorType = Math.floor(Math.random() * 4);
+        do {
+            question.first = Math.floor(Math.random() * 12) + 1;
+            question.second = Math.floor(Math.random() * 12) + 1;
+            switch (operatorType) {
+            case 0:
+                question.operator = 'plus';
+                question.answer = question.first + question.second;
+                break;
+            case 1:
+                question.operator = 'minus';
+                question.answer = question.first - question.second;
+                break;
+            case 2:
+                question.operator = 'times';
+                question.answer = question.first * question.second;
+                break;
+            case 3:
+                question.operator = 'divided by';
+                question.answer = (question.first / question.second * 100) / 100;
+                break;
+            default:
+                question.operator = '';
+                question.answer = '';
+            }
+        } while (!this.valid(question));
+        return question;
+    },
+    valid: function (question) {
+        var isValid = (question.answer === Math.floor(question.answer)
+            && question.answer >= this.minValue
+            && question.answer <= this.maxValue);
+        if (isValid && question.operator === 'divided by') {
+            isValid === (question.first > 1 && question.second > 1);
+        }
+        return isValid;
+    },
+    ask: function (evt) {
+        var form = this,
+            that = form.questions;
+        if (!form.elements.answer.value) {
+            return false;
+        }
+        that.answer(form);
+        if (that.history.length < that.totalQuestions) {
+            that.show(form);
+        } else {
+            that.endTime = new Date();
+            that.summary();
+        }
+        return false;
+    },
+    show: function (form) {
+        var question = this.get();
+        this.history.push(question);
+        document.getElementById('questionnumber').innerHTML = this.history.length + ' / ' + this.totalQuestions;
+        document.getElementById('first').innerHTML = question.first;
+        document.getElementById('operator').innerHTML = question.operator;
+        document.getElementById('second').innerHTML = question.second;
+        form.elements.answer.value = '';
+        form.elements.answer.focus();
+    },
+    answer: function (form) {
+        var question = this.history[this.history.length - 1],
+            answer = question.answer;
+        question.guess = form.elements.answer.value;
+        question.result = true;
+        if (Number(question.guess) !== answer) {
+            question.result = false;
+            alert(question.guess + ' is not the right answer.\
+\
+' + question.first + ' ' + question.operator + ' ' + question.second + ' is ' + question.answer);
+        }
+    },
+    summary: function () {
+        var i,
+            correct = 0,
+            playtime = Math.floor((this.endTime - this.startTime) / 1000),
+            average = Math.floor(playtime / this.totalQuestions * 10) / 10,
+            summary = document.createDocumentFragment();
+        for (i = 0; i < this.history.length; i += 1) {
+            correct += (this.history[i].result ? 1 : 0);
+        }
+        summary.appendChild(document.createTextNode('You got ' + correct + ' questions right.'));
+        summary.appendChild(document.createElement('br'));
+        summary.appendChild(document.createTextNode('You played for ' + playtime + ' seconds, and took an average of ' + average + ' seconds to answer each question.'));
+        document.body.appendChild(summary);
+    }
+};
+window.questions.init(document.getElementById('game')); 
+</script>
+</body>
+</html>

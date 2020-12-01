@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>LOGIN PAGE</title>
+        <style type="text/css">
+           a{
+            color:red;
+        }
+            .signin {
+                /* background-color: #f1f1f1; */
+                text-align: center;
+                width: 40%;
+            }
+            .registerbtn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 40%;
+            opacity: 0.9;
+        }	
+            body,input {color:skyblue;
+                /* background-image: url('na2.jpg'); */
+                background-size: cover;
+                background-attachment: fixed;
+                background-repeat: no-repeat;}
+        </style>
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-auth.js"></script>
+        <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+        <script src="form.js"></script>
+    </head>
+<body bgcolor=indigo>    
+    <center><h1>Login</h1>
+        <p>Please Enter your deatils below.<br> 
+            Press Login button when you are done
+        </p>
+        <form>
+        <table align="center">
+            <tr><td>Email</td><td>:<input type="email" placeholder="email" id="email" required/></td></tr>        
+            <tr><td>Password</td><td>:<input type="password" placeholder="password" id="password" required/></td></tr>
+        </table>
+        <br></form> 
+        <button class="registerbtn" onclick="Login()" id="Login">LOGIN</button>
+        
+        <div class="container signin">
+            <p>Don't have an account? Press <a href="signup.html">Register</a>.</p>
+            <p>Forgot your account or Password? Press <a href="#">Forgot</a>.</p>
+        </div> 
+    
+    </center>   
+
+</body>
+</html> 
